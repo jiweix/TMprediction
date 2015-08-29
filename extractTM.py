@@ -1,8 +1,8 @@
 def process(line, sequences):
     """ line with more than 20 residues are cut into 20 residues pieces
 
-    :param line: a single line from input file, start with 1 or 0, followed by a sequence
-    :param sequences: a list to add the processed lines
+    :param line (string): a single line from input file, start with 1 or 0, followed by a sequence
+    :param sequences (list): a list to add the processed lines
 
     :return: None
     """

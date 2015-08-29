@@ -27,33 +27,38 @@ aa_info = {'A': [1.80, 0, 0, 0.17, 0.0, 6.0, 0.5],
 def featureGenerate(seq):
     """ generate a nparray features from amino acids sequence
 
-    :param seq: amino acids sequence in lenth of 20
+    :param seq (string): amino acids sequence in lenth of 20
 
     :return: nparray: of all features
              [Hydropathicity, side chain charge, polar, Interface Scale, pKa_sidechain, pI,
              Octanol Scale, number of hydrophobic resides, number of 'RK's]
     """
-    features = [0]*9
-    if len(seq) > 20:
-        seq = seq[:20]
-    if len(seq) < 20:
-        return features
+    features = [0]*19
     for aa in seq:
         for i in range(7):
             features[i] += aa_info[aa][i]
+        for i in [0, 1, 2, 3]:
+            if aa_info[aa][i] > 0:
+                features[7+2*i] += aa_info[aa][i]
+            else: 
+                features[8+2*i] += aa_info[aa][i]
+        if aa_info[aa][6] > 0:
+            features[15] += aa_info[aa][i]
+        else: 
+            features[16] += aa_info[aa][i]
         if aa in 'VILMFWC':
-            features[7] += 1
+            features[17] += 1
         if aa in 'RK':
-            features[8] += 1
+            features[18] += 1
     return np.array(features)
 
 
 def getP(x, w, intercept):
     """ calculate the probability of a set of features to be transmembrane domain
 
-    :param x: all the features, nparray(9)
-    :param w: model weight, nparray(9)
-    :param intercept: model intercept
+    :param x (nparray): all the features, nparray(9)
+    :param w (nparray): model weight, nparray(9)
+    :param intercept (float): model intercept
 
     :return: float: the probability of a set of features to be transmembrane domain
     """
@@ -67,14 +72,17 @@ def getP(x, w, intercept):
 def predictFromSeq(seq):
     """ calculate the probability of a sequence to be transmembrane domain
 
-    :param seq: amino acids sequences
+    :param seq (string): amino acids sequences
 
     :return: float: the probability of a sequence to be transmembrane domain
     """
     # the value for w and intercept are from current best model
-    w = np.array([0.179153018013, 0.0283969783774, -0.000504497958365, -0.120192164047,
-                  -0.0173080116018, -0.037859079514, -0.131153338053, 0.0228327769761, -0.0181199689548])
-    intercept = 0.999521602093
+    w = np.array([0.127752353647,0.0248992252734,0.00743572396795,-0.103688386021,
+                  -0.00750701102293,-0.00174062161425,-0.102516810939,-0.02997609561,
+                  0.157728449257,-0.0161521904671,0.0410514157405,-0.0123707848711,
+                  0.019806508839,-0.0484790847163,-0.0552093013047,-0.0478423792262,
+                  -0.0558460067948,0.0278284300459,-0.0161521904671])
+    intercept = 0.999916812177
     return getP(featureGenerate(seq), w, intercept)
 
 if __name__ == '__main__':

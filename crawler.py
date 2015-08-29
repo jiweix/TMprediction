@@ -18,7 +18,7 @@ thisurl = "http://wardlab.cbs.umn.edu/yeast/"
 def getPage(url):
     """ return html content from a web page
 
-    :param url: web page url
+    :param url (string): web page url
 
     :return: string: all the html content from that page
     """
@@ -33,9 +33,9 @@ def getPage(url):
 def getNextContent(page, startS, endS):
     """ Given two strings, find the content between these two strings in the current page
 
-    :param page: the content of current working web page
-    :param startS: content start point
-    :param endS: content end point
+    :param page (string): the content of current working web page
+    :param startS (string): content start point
+    :param endS (string): content end point
 
     :return: string: the content between start point and end point
     """
@@ -52,8 +52,8 @@ def getNextContent(page, startS, endS):
 def fetchUrls(page, mainSite):
     """ get all the urls from a single page
 
-    :param page: the working web page, updated in the while loop
-    :param mainSite: use this string to check is the url is still in the main site
+    :param page (string): the working web page, updated in the while loop
+    :param mainSite (string): use this string to check is the url is still in the main site
 
     :return: list: all the urls in the current page
     """
@@ -79,7 +79,7 @@ def fetchUrls(page, mainSite):
 def fetchContent(page):
     """ extract the useful data from a page
 
-    :param page: the working web page
+    :param page (string): the working web page
 
     :return: list: all content in <pre></pre>, that is all the amino acids sequences
     """
@@ -100,7 +100,7 @@ def crawlSite(siteUrl):
     """ get all the html content from http://wardlab.cbs.umn.edu/yeast/
         This function only work with this website
 
-    :param siteUrl: the url
+    :param siteUrl (string): the url
 
     :return: list: contents from all the pages
     """
@@ -131,7 +131,7 @@ def crawlSite(siteUrl):
 def extract(item):
     """ get all the pieces of sequences, one sequence would be either transmenbrane domain or not
 
-    :param item: a pieces of web page content
+    :param item (string): a pieces of web page content
 
     :return: list: all sequences with label
     """
