@@ -13,7 +13,7 @@ These features covers most of the important parameters of a peptides, and the mo
 
 The predictFromSeq function in feature_generate.py could be used to predict whether a 20 residues peptide is transmenbrane domain. The return value of that function is the probability of a sequence to be transmembrane domain
 
-The model was test against the experimental data from PDBTM, and it accurately predict 93.5% transmembrane domain in the lenth range of 20-26 residues, which means this model has very high sensitivity. According to Y. Diao et al, the sensitivity of HMMTOP was 74.9% and that of TMpred was 66.4%, which are much lower than the current model in this project.
+The model was test against the experimental data from PDBTM, and it accurately predict 93.5% transmembrane domain in the lenth range of 20-26 residues, which means this model has very high sensitivity. According to Y. Diao et al, the sensitivity of HMMTOP was 74.9% and that of TMpred was 66.4%, which are much lower than the current model in this project. The specifity of this model, defining by correct prediction over the predicted segments, is 88.5%, which is also higher than the two tools mentioned above. 
 
 Ref:
 Using pseudo amino acid composition to predict transmembrane regions in protein: celluar automata and Lempel-Ziv complexity. Y.Diao et al, Amino Acids (2008) 34: 111-117
